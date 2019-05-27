@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserJDBCRepository {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    public void saveUser(User user){
+    public void saveUser(User user,JdbcTemplate jdbcTemplate){
         int result = jdbcTemplate.update("insert into users(name,password,age) values(?,?,?)",user.getName(),user.getPassword(),user.getAge());
         System.out.println("save result == "+result);
     }

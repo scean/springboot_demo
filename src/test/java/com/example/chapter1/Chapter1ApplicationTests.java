@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,9 +35,19 @@ public class Chapter1ApplicationTests {
     @Autowired
     UserJDBCRepository userJDBCRepository;
 
+    @Autowired
+    JdbcTemplate primaryJdbcTemplate;
+
+    @Autowired
+    JdbcTemplate secondJdbcTemplate;
+
+
     @Test public void testSave() {
-        User user =new User("neo","123456",30);
-        userJDBCRepository.saveUser(user);
+        User user =new User("neo","test_0000000_frist_new",30);
+        userJDBCRepository.saveUser(user,primaryJdbcTemplate);
+
+        User user1 =new User("neo","test_9999_second",30);
+        userJDBCRepository.saveUser(user1,secondJdbcTemplate);
     }
 
 
