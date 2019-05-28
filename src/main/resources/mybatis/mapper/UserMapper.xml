@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.chapter1.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.chapter1.bean.MybatisBean" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="passWord" property="password" jdbcType="VARCHAR" />
+        <result column="user_sex" property="user_sex" javaType="com.example.chapter1.bean.UserSexEnum"/>
+        <result column="nick_name" property="nick_name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT
+        *
+        from mybatisusers;
+    </select>
+
+    <insert id="insert" parameterType="com.example.chapter1.bean.MybatisBean">
+        INSERT  into
+         mybatisusers
+          (userName,passWord,user_sex,nick_name)
+        values
+        (#{userName},#{password},#{user_sex},#{nick_name})
+    </insert>
+
+<update id = "update" parameterType="com.example.chapter1.bean.MybatisBean">
+    update
+        mybatisusers
+         set
+         userName = #{userName},passWord = #{password},user_sex = #{user_sex},nick_name = #{nick_name}
+         where
+         id = #{id}
+  </update>
+</mapper>

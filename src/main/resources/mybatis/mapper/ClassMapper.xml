@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.chapter1.mapper.ClassesMapper">
+    <select id="getClass" parameterType="int" resultMap="ClassResultMap3">
+        select
+         *
+         from class c, teacher t,student s
+         where c.teacher_id=t.t_id and c.C_id=s.class_id and  c.c_id=#{id}
+    </select>
+    <resultMap type="com.example.chapter1.bean.mixmodel.Classes" id="ClassResultMap3">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <association property="teacher" column="teacher_id" javaType="com.example.chapter1.bean.mixmodel.Teacher">
+            <id property="id" column="t_id"/>
+            <result property="name" column="t_name"/>
+        </association>
+        <!-- ofType指定students集合中的对象类型 -->
+        <collection property="students" ofType="com.example.chapter1.bean.mixmodel.Student">
+            <id property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+        </collection>
+    </resultMap>
+</mapper>
